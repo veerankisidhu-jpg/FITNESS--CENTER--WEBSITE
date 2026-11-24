@@ -1,0 +1,611 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>IronFit Fitness Center</title>
+
+    <style>
+        /* GENERAL STYLING */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+            scroll-behavior: smooth;
+        }
+
+        body {
+            background-color: #111;
+            color: white;
+        }
+
+        /* NAVIGATION */
+        header {
+            background-color: #181818;
+            padding: 20px 8%;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .logo {
+            font-size: 28px;
+            font-weight: bold;
+            color: #ff5722;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin-left: 25px;
+            font-size: 16px;
+        }
+
+        nav a:hover {
+            color: #ff5722;
+        }
+
+        /* HERO SECTION */
+        .hero {
+            height: 90vh;
+            background:
+                linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)),
+                url("https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=1600&q=80");
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            padding: 0 10%;
+        }
+
+        .hero-content {
+            max-width: 650px;
+        }
+
+        .hero h1 {
+            font-size: 60px;
+            margin-bottom: 20px;
+        }
+
+        .hero h1 span {
+            color: #ff5722;
+        }
+
+        .hero p {
+            font-size: 18px;
+            line-height: 1.7;
+            margin-bottom: 30px;
+            color: #ddd;
+        }
+
+        .btn {
+            display: inline-block;
+            background-color: #ff5722;
+            color: white;
+            padding: 14px 30px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-weight: bold;
+            border: none;
+            cursor: pointer;
+        }
+
+        .btn:hover {
+            background-color: #e64a19;
+        }
+
+        /* COMMON SECTION */
+        section {
+            padding: 70px 8%;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .section-title span {
+            color: #ff5722;
+        }
+
+        .section-description {
+            text-align: center;
+            color: #bbb;
+            margin-bottom: 45px;
+        }
+
+        /* WORKOUT PROGRAMS */
+        .programs {
+            background-color: #181818;
+        }
+
+        .program-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .program-card {
+            background-color: #242424;
+            border-radius: 10px;
+            overflow: hidden;
+            transition: 0.3s;
+        }
+
+        .program-card:hover {
+            transform: translateY(-8px);
+        }
+
+        .program-card img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+        }
+
+        .program-card h3 {
+            color: #ff5722;
+            padding: 20px 20px 10px;
+        }
+
+        .program-card p {
+            color: #ccc;
+            padding: 0 20px 25px;
+            line-height: 1.6;
+        }
+
+        /* TRAINERS */
+        .trainer-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .trainer-card {
+            background-color: #242424;
+            text-align: center;
+            padding-bottom: 25px;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .trainer-card img {
+            width: 100%;
+            height: 300px;
+            object-fit: cover;
+        }
+
+        .trainer-card h3 {
+            margin: 20px 0 10px;
+            color: #ff5722;
+        }
+
+        .trainer-card p {
+            color: #bbb;
+        }
+
+        /* FACILITIES */
+        .facilities {
+            background-color: #181818;
+        }
+
+        .facility-container {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
+        }
+
+        .facility-box {
+            background-color: #242424;
+            padding: 30px 15px;
+            text-align: center;
+            border-radius: 8px;
+        }
+
+        .facility-box h3 {
+            color: #ff5722;
+            margin-bottom: 12px;
+        }
+
+        .facility-box p {
+            color: #ccc;
+            line-height: 1.5;
+        }
+
+        /* MEMBERSHIP PLANS */
+        .plan-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+        }
+
+        .plan-card {
+            background-color: #242424;
+            padding: 35px 25px;
+            text-align: center;
+            border-radius: 10px;
+            border: 2px solid transparent;
+        }
+
+        .plan-card.featured {
+            border-color: #ff5722;
+        }
+
+        .plan-card h3 {
+            font-size: 25px;
+            margin-bottom: 20px;
+        }
+
+        .price {
+            font-size: 35px;
+            color: #ff5722;
+            margin-bottom: 25px;
+        }
+
+        .price span {
+            font-size: 15px;
+            color: #bbb;
+        }
+
+        .plan-card ul {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+
+        .plan-card li {
+            padding: 10px;
+            color: #ddd;
+        }
+
+        /* REGISTRATION */
+        .registration {
+            background-color: #181818;
+        }
+
+        .registration form {
+            max-width: 600px;
+            margin: auto;
+            background-color: #242424;
+            padding: 35px;
+            border-radius: 10px;
+        }
+
+        .registration input,
+        .registration select,
+        .registration textarea {
+            width: 100%;
+            padding: 14px;
+            margin-bottom: 18px;
+            border: 1px solid #444;
+            background-color: #111;
+            color: white;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .registration textarea {
+            height: 100px;
+            resize: vertical;
+        }
+
+        .registration button {
+            width: 100%;
+            font-size: 16px;
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: #0a0a0a;
+            text-align: center;
+            padding: 25px;
+            color: #aaa;
+        }
+
+        footer span {
+            color: #ff5722;
+        }
+
+        /* RESPONSIVE DESIGN */
+        @media (max-width: 900px) {
+            .program-container,
+            .trainer-container,
+            .plan-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .facility-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .hero h1 {
+                font-size: 45px;
+            }
+
+            nav a {
+                margin-left: 12px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            header {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            nav {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: center;
+                gap: 12px;
+            }
+
+            nav a {
+                margin: 0;
+                font-size: 14px;
+            }
+
+            .hero {
+                height: 75vh;
+                padding: 0 7%;
+            }
+
+            .hero h1 {
+                font-size: 38px;
+            }
+
+            .hero p {
+                font-size: 16px;
+            }
+
+            .program-container,
+            .trainer-container,
+            .plan-container,
+            .facility-container {
+                grid-template-columns: 1fr;
+            }
+
+            .section-title {
+                font-size: 29px;
+            }
+
+            section {
+                padding: 50px 6%;
+            }
+
+            .registration form {
+                padding: 25px 18px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <header>
+        <div class="logo">IRONFIT</div>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#programs">Programs</a>
+            <a href="#trainers">Trainers</a>
+            <a href="#facilities">Facilities</a>
+            <a href="#plans">Plans</a>
+            <a href="#register">Join Us</a>
+        </nav>
+    </header>
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="home">
+        <div class="hero-content">
+            <h1>BUILD YOUR <span>BODY</span><br>BUILD YOUR FUTURE</h1>
+
+            <p>
+                Welcome to IronFit Fitness Center.
+                Train harder, become stronger, and achieve your fitness goals
+                with our expert trainers and modern equipment.
+            </p>
+
+            <a href="#plans" class="btn">Explore Membership</a>
+        </div>
+    </section>
+
+    <!-- WORKOUT PROGRAMS -->
+    <section class="programs" id="programs">
+        <h2 class="section-title">OUR <span>WORKOUT PROGRAMS</span></h2>
+        <p class="section-description">
+            Choose the perfect workout program for your fitness journey.
+        </p>
+
+        <div class="program-container">
+
+            <div class="program-card">
+                <img src="https://images.unsplash.com/photo-1583454110551-21f2fa2afe61?auto=format&fit=crop&w=700&q=80" alt="Strength training">
+                <h3>Strength Training</h3>
+                <p>Build muscle, increase strength, and improve overall body fitness.</p>
+            </div>
+
+            <div class="program-card">
+                <img src="https://images.unsplash.com/photo-1538805060514-97d9cc17730c?auto=format&fit=crop&w=700&q=80" alt="Cardio workout">
+                <h3>Cardio Fitness</h3>
+                <p>Improve stamina, heart health, and burn calories with cardio exercises.</p>
+            </div>
+
+            <div class="program-card">
+                <img src="https://images.unsplash.com/photo-1518611012118-696072aa579a?auto=format&fit=crop&w=700&q=80" alt="Yoga workout">
+                <h3>Yoga & Flexibility</h3>
+                <p>Relax your mind, improve flexibility, and maintain body balance.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- TRAINERS -->
+    <section id="trainers">
+        <h2 class="section-title">MEET OUR <span>TRAINERS</span></h2>
+        <p class="section-description">
+            Learn from our experienced and certified fitness professionals.
+        </p>
+
+        <div class="trainer-container">
+
+            <div class="trainer-card">
+                <img src="https://images.unsplash.com/photo-1567013127542-490d757e51fc?auto=format&fit=crop&w=700&q=80" alt="Fitness trainer">
+                <h3>Arjun Kumar</h3>
+                <p>Strength & Muscle Trainer</p>
+            </div>
+
+            <div class="trainer-card">
+                <img src="https://images.unsplash.com/photo-1534438327276-14e5300c3a48?auto=format&fit=crop&w=700&q=80" alt="Personal fitness trainer">
+                <h3>Rahul Sharma</h3>
+                <p>Personal Fitness Coach</p>
+            </div>
+
+            <div class="trainer-card">
+                <img src="https://images.unsplash.com/photo-1544367567-0f2fcb009e0b?auto=format&fit=crop&w=700&q=80" alt="Yoga instructor">
+                <h3>Priya Reddy</h3>
+                <p>Yoga & Wellness Instructor</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- FACILITIES -->
+    <section class="facilities" id="facilities">
+        <h2 class="section-title">OUR <span>FACILITIES</span></h2>
+        <p class="section-description">
+            Everything you need for a complete fitness experience.
+        </p>
+
+        <div class="facility-container">
+
+            <div class="facility-box">
+                <h3>Modern Equipment</h3>
+                <p>Advanced gym machines and free weights.</p>
+            </div>
+
+            <div class="facility-box">
+                <h3>Personal Training</h3>
+                <p>Individual fitness guidance and workout plans.</p>
+            </div>
+
+            <div class="facility-box">
+                <h3>Locker Rooms</h3>
+                <p>Clean and secure changing facilities.</p>
+            </div>
+
+            <div class="facility-box">
+                <h3>Steam & Shower</h3>
+                <p>Relax and refresh after your workout.</p>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- MEMBERSHIP PLANS -->
+    <section id="plans">
+        <h2 class="section-title">MEMBERSHIP <span>PLANS</span></h2>
+        <p class="section-description">
+            Choose a membership that suits your fitness goals and budget.
+        </p>
+
+        <div class="plan-container">
+
+            <div class="plan-card">
+                <h3>Basic</h3>
+                <div class="price">₹999 <span>/ month</span></div>
+
+                <ul>
+                    <li>Gym Access</li>
+                    <li>Basic Equipment</li>
+                    <li>Locker Facility</li>
+                    <li>Monthly Fitness Check</li>
+                </ul>
+
+                <a href="#register" class="btn">Join Now</a>
+            </div>
+
+            <div class="plan-card featured">
+                <h3>Premium</h3>
+                <div class="price">₹1,999 <span>/ month</span></div>
+
+                <ul>
+                    <li>All Basic Features</li>
+                    <li>Personal Trainer</li>
+                    <li>Yoga Classes</li>
+                    <li>Diet Guidance</li>
+                </ul>
+
+                <a href="#register" class="btn">Join Now</a>
+            </div>
+
+            <div class="plan-card">
+                <h3>Elite</h3>
+                <div class="price">₹2,999 <span>/ month</span></div>
+
+                <ul>
+                    <li>All Premium Features</li>
+                    <li>Unlimited Gym Access</li>
+                    <li>Advanced Training</li>
+                    <li>Special Fitness Programs</li>
+                </ul>
+
+                <a href="#register" class="btn">Join Now</a>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- REGISTRATION -->
+    <section class="registration" id="register">
+        <h2 class="section-title">JOIN <span>IRONFIT</span></h2>
+        <p class="section-description">
+            Register today and start your fitness journey.
+        </p>
+
+        <form action="#" method="post">
+
+            <input type="text" name="name" placeholder="Full Name" required>
+
+            <input type="email" name="email" placeholder="Email Address" required>
+
+            <input type="tel" name="phone" placeholder="Phone Number" required>
+
+            <select name="program" required>
+                <option value="">Select Workout Program</option>
+                <option>Strength Training</option>
+                <option>Cardio Fitness</option>
+                <option>Yoga & Flexibility</option>
+            </select>
+
+            <select name="membership" required>
+                <option value="">Select Membership Plan</option>
+                <option>Basic - ₹999</option>
+                <option>Premium - ₹1,999</option>
+                <option>Elite - ₹2,999</option>
+            </select>
+
+            <textarea name="message" placeholder="Your fitness goals"></textarea>
+
+            <button type="submit" class="btn">Register Now</button>
+
+        </form>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+        <p>
+            © 2026 <span>IronFit Fitness Center</span>.
+            All Rights Reserved.
+        </p>
+        <p>Contact: ironfit@example.com | Phone: 98765 43210</p>
+    </footer>
+
+</body>
+</html>
+```
